@@ -1,0 +1,25 @@
+name: Lint-Format
+on: push
+
+jobs:
+    lint-and-format:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - uses: actions/setup-node@v1
+            - name: Cache node_modules
+              id: cache-modules
+              uses: actions/cache@v1
+              with:
+                  path: node_modules
+                  key: 12.x-${{ runner.OS }}-build-${{ hashFiles('package.json') }}
+
+            - name: Install
+              if: steps.cache-modules.outputs.cache-hit != 'true'
+              run: npm install
+
+            - run: npm run build
+
+            - run: npm run lint
+            - run: npm run format
+            - run: echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
