@@ -1,0 +1,64 @@
+{
+    "name": "goldpkg",
+    "version": "0.0.1",
+    "description": "C++ Package Manager to integrate CMake and VCPKG More closely",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "lint": "eslint --cache --max-warnings=0 --fix src",
+        "format": "prettier --write ."
+    },
+    "bin": "./dist/index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/pratikpc/GoldPKG"
+    },
+    "homepage": "https://github.com/pratikpc/GoldPKG#readme",
+    "preferGlobal": true,
+    "author": "Pratik Chowdhury (pratikc@live.co.uk)",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^14.11.1",
+        "@types/yargs": "^15.0.5",
+        "@typescript-eslint/eslint-plugin": "^4.1.1",
+        "@typescript-eslint/parser": "^4.1.1",
+        "eslint": "^7.9.0",
+        "eslint-config-airbnb-typescript": "^10.0.0",
+        "eslint-config-prettier": "^6.11.0",
+        "eslint-plugin-eslint-comments": "^3.2.0",
+        "eslint-plugin-import": "^2.22.0",
+        "eslint-plugin-promise": "^4.2.1",
+        "husky": "^4.3.0",
+        "lint-staged": "^10.4.0",
+        "prettier": "^2.1.2",
+        "typescript": "^4.0.3"
+    },
+    "dependencies": {
+        "@types/lodash": "^4.14.161",
+        "@types/semver": "^7.3.4",
+        "colors": "^1.4.0",
+        "fast-glob": "^3.2.4",
+        "lodash": "^4.17.20",
+        "semver": "^7.3.2",
+        "yargs": "^16.0.3"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.ts": "eslint --cache --max-warnings=0 --fix",
+        "*.{ts,css,md,json}": "prettier --write"
+    },
+    "keywords": [
+        "C++",
+        "C",
+        "Package Manager",
+        "VCPKg",
+        "CMake",
+        "cli"
+    ]
+}

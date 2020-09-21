@@ -1,0 +1,50 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "tsconfigRootDir": ".",
+        "project": ["tsconfig.json"]
+    },
+    "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "object-shorthand": ["error", "never"],
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true
+            }
+        ],
+        "no-continue": "off",
+        "no-return-await": "off",
+        "import/newline-after-import": "off",
+        "import/no-mutable-exports": 0,
+        "no-labels": 0,
+        "no-prototype-builtins": "off",
+        "no-console": "off",
+        "no-restricted-syntax": 0,
+        "max-classes-per-file": ["error", 4],
+        "@typescript-eslint/lines-between-class-members": [
+            "error",
+            "always",
+            {
+                "exceptAfterSingleLine": true
+            }
+        ],
+        "lines-between-class-members": [
+            "error",
+            "always",
+            {
+                "exceptAfterSingleLine": true
+            }
+        ]
+    },
+    "plugins": ["@typescript-eslint"],
+    "extends": [
+        "airbnb-typescript/base",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:eslint-comments/recommended",
+        "plugin:promise/recommended",
+        "prettier",
+        "prettier/@typescript-eslint"
+    ]
+}
