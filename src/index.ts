@@ -40,7 +40,7 @@ import RunVCPKG from './vcpkg/run';
         return { stdout: PathToCMakeToolChain() };
     if (argv.init != null) {
         return await InitSampleCode(
-            argv.init ?? 'Samples',
+            argv.init === '' ? 'Samples' : argv.init,
             ...argv._
         );
     }
