@@ -132,7 +132,7 @@ We also provide Unit Tests for Library
 | **--help**                | Show help                                                                  | `[boolean]`                                                                               |
 | **--bootstrap**           | Bootstrap VCPKG                                                            | `[array]`                                                                                 |
 | **--config-json**         | Provide Path to Configuration File. By Default, Looks in Current Directory | `[string]` [default: Current Directory]                                                   |
-| _**--cmake**_             | Provide Path to `CMakeLists.txt`.                                          | `[string]`                                                                                |
+| **_--cmake_**             | Provide Path to `CMakeLists.txt`.                                          | `[string]`                                                                                |
 | **--vcpkg-json**          | Provide Path to vcpkg Manifest                                             | `[string]` [default: Current Directory]                                                   |
 | **--vcpkg-dir**           | Provide Path to VCPkg.                                                     | `[string]` [default: Current Directory]                                                   |
 | **--save-dev**, **--dev** | Save New Package to Dev Environment                                        |                                                                                           |
@@ -150,8 +150,11 @@ We also provide Unit Tests for Library
 
 We provide a `.goldpkg.json` file by default
 
-```yaml
-{ 'Bootstrap': ['-disableMetrics'], 'VCPkg': [] }
+```json
+{
+    "Bootstrap": ["-disableMetrics"],
+    "VCPkg": []
+}
 ```
 
 Currently supports configuring Bootstrap and VCPKG with additional commands
@@ -244,7 +247,10 @@ Currently supports configuring Bootstrap and VCPKG with additional commands
             - [Husky](https://www.npmjs.com/package/husky)
             - [Lint-Staged](https://www.npmjs.com/package/lint-staged)
         - for [Git Hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
-    5. [GitHub Actions](https://docs.github.com/en/actions) for Unit Testing CMake on Windows, Linux and macOS
+    5. [GitHub Actions](https://docs.github.com/en/actions) for Unit Testing CMake on
+        - Windows
+        - Linux
+        - macOS
 
 ---
 
