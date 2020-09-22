@@ -1,4 +1,7 @@
-import { GIT_REPO_SAMPLE_CODE, LIBNAME } from '../constants';
+import {
+    GIT_REPO_SAMPLE_CODE,
+    LIBNAME
+} from '../constants';
 import { CloneRepo } from '../util/Git';
 import RunCommandAsStream from '.';
 
