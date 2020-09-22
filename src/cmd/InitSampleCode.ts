@@ -1,4 +1,4 @@
-import { GIT_REPO_SAMPLE_CODE } from '../constants';
+import { GIT_REPO_SAMPLE_CODE, LIBNAME } from '../constants';
 import { CloneRepo } from '../util/Git';
 import RunCommandAsStream from '.';
 
@@ -14,7 +14,7 @@ export default async function InitSampleCode(
             ...args
         );
         process.chdir(location);
-        await RunCommandAsStream('npx goldpkg install');
+        await RunCommandAsStream(`npx ${LIBNAME} install`);
     } catch (err) {
         // Ignore Error
     }
