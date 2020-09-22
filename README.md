@@ -262,6 +262,9 @@ Currently supports configuring Bootstrap and VCPKG with additional commands
 > goldpkg --vcpkg <-commands->
 ```
 
+11. Can this be used for production?  
+    I am not sure. I don't think it should be used in production till we reach `0.1.0`
+
 ---
 
 ## Samples Repo Location
