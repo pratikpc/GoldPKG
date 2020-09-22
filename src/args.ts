@@ -15,7 +15,7 @@ const GoldPKGArgs = yargs
             array: true,
             description: 'Bootstrap VCPKG'
         },
-        'package-json': {
+        'config-json': {
             requiresArg: true,
             string: true,
             number: false,

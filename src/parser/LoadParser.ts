@@ -7,7 +7,7 @@ export default async function LoadParser(
     argv: typeof GoldPKGArgs
 ) {
     await Promise.all([
-        configurationParser.LoadFile(argv['package-json']),
+        configurationParser.LoadFile(argv['config-json']),
         vcpkgManifest.LoadFile(argv['vcpkg-json'])
     ]);
     // Update the Local CMake File

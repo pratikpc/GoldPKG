@@ -126,21 +126,21 @@ We also provide Unit Tests for Library
 
 ---
 
-| Option                    | Definition                                                           | Type                                                                                      |
-| :------------------------ | :------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
-| **--version**             | Show version number                                                  | `[boolean]`                                                                               |
-| **--help**                | Show help                                                            | `[boolean]`                                                                               |
-| **--bootstrap**           | Bootstrap VCPKG                                                      | `[array]`                                                                                 |
-| **--package-json**        | Provide Path to Package.json. By Default, Looks in Current Directory | `[string]` [default: Current Directory]                                                   |
-| _**--cmake**_             | Provide Path to `CMakeLists.txt`.                                    | `[string]`                                                                                |
-| **--vcpkg-json**          | Provide Path to vcpkg Manifest                                       | `[string]` [default: Current Directory]                                                   |
-| **--vcpkg-dir**           | Provide Path to VCPkg.                                               | `[string]` [default: Current Directory]                                                   |
-| **--save-dev**, **--dev** | Save New Package to Dev Environment                                  |                                                                                           |
-| **--cmake-toolchain**     | Get the Path to VCPKG ToolChain File                                 |                                                                                           |
-| **--triplet**             | Set the VCPKG Triplet                                                | `[string]`                                                                                |
-| **--versupgrade**         | Semver updates of Manifest                                           | [`choices`: _"major", premajor", "minor", "preminor", "patch", "prepatch", "prerelease"_] |
-| **--init**                | Name the Directory to Initialize the Project                         | `[string]`                                                                                |
-| **--vcpkg**               | Pass Commands directly to VCPKG instead of using our Overloads       | `[array]`                                                                                 |
+| Option                    | Definition                                                                 | Type                                                                                      |
+| :------------------------ | :------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| **--version**             | Show version number                                                        | `[boolean]`                                                                               |
+| **--help**                | Show help                                                                  | `[boolean]`                                                                               |
+| **--bootstrap**           | Bootstrap VCPKG                                                            | `[array]`                                                                                 |
+| **--config-json**         | Provide Path to Configuration File. By Default, Looks in Current Directory | `[string]` [default: Current Directory]                                                   |
+| _**--cmake**_             | Provide Path to `CMakeLists.txt`.                                          | `[string]`                                                                                |
+| **--vcpkg-json**          | Provide Path to vcpkg Manifest                                             | `[string]` [default: Current Directory]                                                   |
+| **--vcpkg-dir**           | Provide Path to VCPkg.                                                     | `[string]` [default: Current Directory]                                                   |
+| **--save-dev**, **--dev** | Save New Package to Dev Environment                                        |                                                                                           |
+| **--cmake-toolchain**     | Get the Path to VCPKG ToolChain File                                       |                                                                                           |
+| **--triplet**             | Set the VCPKG Triplet                                                      | `[string]`                                                                                |
+| **--versupgrade**         | Semver updates of Manifest                                                 | [`choices`: _"major", premajor", "minor", "preminor", "patch", "prepatch", "prerelease"_] |
+| **--init**                | Name the Directory to Initialize the Project                               | `[string]`                                                                                |
+| **--vcpkg**               | Pass Commands directly to VCPKG instead of using our Overloads             | `[array]`                                                                                 |
 
 ---
 
