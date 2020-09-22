@@ -3,24 +3,24 @@ import {
     LIBNAME
 } from '../constants';
 import { CloneRepo } from '../util/Git';
-import RunCommandAsStream from '.';
+import Show from '../util/show';
 
 export default async function InitSampleCode(
     location: string,
     ...args: string[]
 ) {
-    const cwd = process.cwd();
     try {
         await CloneRepo(
             GIT_REPO_SAMPLE_CODE,
             location,
             ...args
         );
-        process.chdir(location);
-        await RunCommandAsStream(`npx ${LIBNAME} install`);
     } catch (err) {
         // Ignore Error
     }
-    process.chdir(cwd);
+    Show(
+        'message',
+        `Install packages at ${location} using npx ${LIBNAME} install`
+    );
     return { show: false };
 }
