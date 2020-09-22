@@ -10,13 +10,6 @@ export default async function LoadParser(
         configurationParser.LoadFile(argv['config-json']),
         vcpkgManifest.LoadFile(argv['vcpkg-json'])
     ]);
-    // Update the Local CMake File
-    // Add ToolChain Path
-    const defaultTopLevelCMakeToolChain = new CMakeParser();
-    await defaultTopLevelCMakeToolChain.LoadFile(
-        vcpkgManifest.DirName
-    );
-
     configurationParser.Config.cmake = argv.cmake ?? '';
 
     configurationParser.Config['vcpkg-dir'] =
@@ -27,6 +20,13 @@ export default async function LoadParser(
         ? 'dev-dependencies'
         : 'dependencies';
     configurationParser.Config.triplet = argv.triplet;
+
+    // Update the Local CMake File
+    // Add ToolChain Path
+    const defaultTopLevelCMakeToolChain = new CMakeParser();
+    await defaultTopLevelCMakeToolChain.LoadFile(
+        vcpkgManifest.DirName
+    );
 
     // Save the path to our VCPKG CMake ToolChain File
     defaultTopLevelCMakeToolChain.setCMakeToolChainLine();

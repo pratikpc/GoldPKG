@@ -4,6 +4,7 @@ import configurationParser from '../parser/ConfigurationManager';
 import vcpkgManifest from '../parser/VCPkgManifest';
 import RunCommandAsStream from '../cmd';
 import Bootstrap from './Bootstrap';
+import { LIBNAME } from '../constants';
 
 export default async function RunVCPKG(
     options: readonly string[],
@@ -22,6 +23,15 @@ export default async function RunVCPKG(
         String(process.platform) === 'win32'
             ? `${file}.exe`
             : `./${file}`;
+    if (!existsSync(vcpkgPath))
+        return {
+            stdout: '',
+            stderr: `VCPKG not found at ${vcpkgPath}
+Specify using --vcpkg-path option
+It's quite possible you have not initialized the repo
+Run ${LIBNAME} --init`,
+            show: true
+        };
     if (!existsSync(join(vcpkgPath, app)))
         await Bootstrap();
     const manifestDir = vcpkgManifest.DirName;

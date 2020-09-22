@@ -35,7 +35,7 @@ export default class CMakeParser extends BaseParser {
     }
 
     public async LoadFile(FilePath?: string) {
-        await super.LoadFile(FilePath, true);
+        await super.LoadFile(FilePath);
         if (!this.Exists) return;
         this.Data = (await this.Read)
             .split('\n')

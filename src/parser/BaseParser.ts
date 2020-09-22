@@ -6,10 +6,7 @@ export default class BaseParser {
     public FilePath = '';
     public DefaultFile = '';
 
-    public async LoadFile(
-        FilePath?: string,
-        checkForExists = false
-    ) {
+    public async LoadFile(FilePath?: string) {
         if (FilePath === '') return;
         this.FilePath = FilePath ?? this.FilePath;
         this.FilePath = path.resolve(this.FilePath);
@@ -26,10 +23,12 @@ export default class BaseParser {
                 this.DefaultFile
             );
         }
-        if (checkForExists) {
-            stats = await lstat(this.FilePath);
-            if (!stats.isFile()) this.FilePath = '';
+        if (!this.Exists) {
+            this.FilePath = '';
+            return;
         }
+        stats = await lstat(this.FilePath);
+        if (!stats.isFile()) this.FilePath = '';
     }
 
     constructor(DefaultFile: string, FilePath?: string) {
@@ -72,11 +71,12 @@ export default class BaseParser {
     }
 
     async WriteFile(data: string | Uint8Array) {
-        await writeFile(this.FilePath, data);
+        if (this.Exists)
+            await writeFile(this.FilePath, data);
     }
 
     public async WriteJson(file: unknown) {
-        return await this.WriteFile(
+        await this.WriteFile(
             JSON.stringify(file, null, '\t')
         );
     }
