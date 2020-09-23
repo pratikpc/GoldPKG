@@ -2,7 +2,6 @@ import {
     DEFAULT_EMPTY_STDOUT,
     LIBNAME
 } from '../constants';
-import CMakeParser from '../parser/CMakeParser';
 import Show from '../util/show';
 import configurationParser from '../parser/ConfigurationManager';
 import {
@@ -11,7 +10,7 @@ import {
     InstallProvidedPackages
 } from './common';
 import vcpkgManifest from '../parser/VCPkgManifest';
-import FindCMakeFiles from '../util/FindCMakeFiles';
+import CMakeParsers from '../parser/CMakeParsers';
 
 // Uses the Manifest to Perform Install
 export default async function Install(
@@ -74,9 +73,8 @@ ${target.join('\n')}
     }
     if (String(configurationParser.Config.cmake) !== '') {
         // Find All CMake Files
-        let cmakeFiles = (await FindCMakeFiles()).map(
-            (cmakeFile) => new CMakeParser(cmakeFile)
-        );
+        const cmakeFiles = new CMakeParsers();
+        await cmakeFiles.OpenFiles();
 
         if (cmakeFiles.length !== 0) {
             if (pkgProvided.length === 0) {
@@ -95,31 +93,18 @@ ${LIBNAME} install <pkg-name-if-empty-add-all> --cmake <CMAKE FILE>`,
                 return DEFAULT_EMPTY_STDOUT;
 
             // Load all CMake Files
-            await Promise.all(
-                cmakeFiles.map((cmakeFile) =>
-                    cmakeFile.LoadFile()
-                )
-            );
-            // Modify and Add Dependencies to the CMake Files
-            for (const cmakeFile of cmakeFiles) {
-                cmakeFile.InsertFindAndTarget(find, target);
-            }
-            // Ignore all Unchanged Files
-            cmakeFiles = cmakeFiles.filter(
-                (cmakeFile) => cmakeFile.Changes
-            );
+            await cmakeFiles.LoadFiles();
+            cmakeFiles.InsertFindAndTarget(find, target);
+
+            cmakeFiles.IgnoreUnchangedOnly();
 
             // Save all Changed Files
-            await Promise.all(
-                cmakeFiles.map((cmakeFile) =>
-                    cmakeFile.Save()
-                )
-            );
+            await cmakeFiles.Save();
 
-            for (const cmakeFile of cmakeFiles) {
+            for (const cmakeFile of cmakeFiles.FileNames) {
                 Show(
                     'message',
-                    `CMake At ${cmakeFile.FilePath} was updated`
+                    `CMake At ${cmakeFile} was updated`
                 );
             }
         }

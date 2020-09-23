@@ -1,8 +1,8 @@
 import { xor } from 'lodash';
+
 import { DEFAULT_EMPTY_STDOUT } from '../constants';
-import CMakeParser from '../parser/CMakeParser';
+import CMakeParsers from '../parser/CMakeParsers';
 import vcpkgManifest from '../parser/VCPkgManifest';
-import FindCMakeFiles from '../util/FindCMakeFiles';
 import Show from '../util/show';
 import {
     ExtractCMakeFindTargetCalls,
@@ -14,13 +14,10 @@ async function RemovePackagesFromCMakeFileIfProvided(
     pkgNames: string[]
 ) {
     // Find All CMake Files
-    let cmakeFiles = (await FindCMakeFiles()).map(
-        (cmakeFile) => new CMakeParser(cmakeFile)
-    );
-    // Load all CMake Files
-    await Promise.all(
-        cmakeFiles.map((cmakeFile) => cmakeFile.LoadFile())
-    );
+    const cmakeFiles = new CMakeParsers();
+
+    await cmakeFiles.OpenFiles();
+    await cmakeFiles.LoadFiles();
 
     const [cmdSimpleOut] = await InstallProvidedPackages(
         pkgNames,
@@ -44,32 +41,24 @@ ${removeFinds.join('\n')}
 ${removeTargets.join('\n')}`
     );
 
-    for (const cmakeFile of cmakeFiles) {
-        cmakeFile.InsertFindAndTarget(
-            [], // We are not Adding Packages Here
-            [],
-            // Just removing existing packages
-            removeFinds,
-            removeTargets
-        );
-    }
-
-    // Ignore all Unchanged Files
-    cmakeFiles = cmakeFiles.filter(
-        (cmakeFile) => cmakeFile.Changes
+    cmakeFiles.InsertFindAndTarget(
+        [], // We are not Adding Packages Here
+        [],
+        // Just removing existing packages
+        removeFinds,
+        removeTargets
     );
 
-    // Save all Changed Files
-    await Promise.all(
-        cmakeFiles.map((cmakeFile) => cmakeFile.Save())
-    );
+    cmakeFiles.IgnoreUnchangedOnly();
 
-    for (const cmakeFile of cmakeFiles) {
+    await cmakeFiles.Save();
+
+    for (const cmakeFile of cmakeFiles.FileNames) {
         Show(
             'message',
-            `Removed ${pkgNames.join(' ')} from ${
-                cmakeFile.FilePath
-            }`
+            `Removed ${pkgNames.join(
+                ' '
+            )} from ${cmakeFile}`
         );
     }
 }
