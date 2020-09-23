@@ -75,6 +75,13 @@ ${removeTargets.join('\n')}`
 }
 
 export default async function Remove(commands_: string[]) {
+    if (!vcpkgManifest.Exists)
+        return {
+            stdout: '',
+            stderr: 'VCPKG Manifest Not Found',
+            show: true
+        };
+
     // Retain Commands only
     const pkgNames = commands_.filter(
         (pkg) => !pkg.startsWith('-')

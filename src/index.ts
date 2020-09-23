@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import type { ReleaseType } from 'semver';
+import { existsSync } from 'fs';
 
 import ExecVCPKg from './vcpkg';
 
@@ -24,7 +25,6 @@ import RunVCPKG from './vcpkg/run';
     await LoadParser(argv);
 
     if (argv.bootstrap != null) {
-        // This Prints on it's own to STDOut
         return await Bootstrap([...argv._]);
     }
     if (argv.versupgrade != null) {
@@ -32,12 +32,19 @@ import RunVCPKG from './vcpkg/run';
         const version = await vcpkgManifest.UpgradeVersion(
             release
         );
+        if (version != null)
+            return {
+                stdout: `New version is at ${version}`
+            };
+        return { stderr: 'Manifest not found' };
+    }
+    if (argv['cmake-toolchain'] != null) {
+        const path = PathToCMakeToolChain();
+        if (existsSync(path)) return { stdout: path };
         return {
-            stdout: `New version is at ${version}`
+            stderr: 'CMake ToolChain for VCPKG Not Found'
         };
     }
-    if (argv['cmake-toolchain'] != null)
-        return { stdout: PathToCMakeToolChain() };
     if (argv.init != null) {
         return await InitSampleCode(
             argv.init === '' ? 'Samples' : argv.init,

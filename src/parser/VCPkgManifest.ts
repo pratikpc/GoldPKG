@@ -77,6 +77,7 @@ class VCPkgManifest extends BaseParser {
     }
 
     public async RemovePackages(pkgNames: string[]) {
+        if (!this.Exists) return;
         const file = await this.ReadJson;
         // Remove Common Dependencies
         let dependencies = differenceBy(
@@ -102,6 +103,7 @@ class VCPkgManifest extends BaseParser {
     }
 
     public async UpgradeVersion(release: ReleaseType) {
+        if (!this.Exists) return null;
         const json = await this.Config;
         const localVersion = json['version-string'];
         const version = UpgradeVersion(
