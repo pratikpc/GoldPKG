@@ -90,6 +90,8 @@ We also provide Unit Tests for Library
 
     This option here can be used as a glob also (provide src to remove from all CMakeLists.txt in src directory)
 
+    Remove is a goldpkg only operation as VCPKG as of Now does not Support Remove
+
 4. `goldpkg update`  
    Updates the vcpkg submodule  
    Runs bootstrap to rebuild `vcpkg` executable  
@@ -262,8 +264,14 @@ Currently supports configuring Bootstrap and VCPKG with additional commands
 > goldpkg --vcpkg <-commands->
 ```
 
-11. Can this be used for production?  
-    I am not sure. I don't think it should be used in production till we reach `0.1.0`
+11. Why create GoldPKG?  
+    I wanted something like Node_Modules and NPM for C++  
+    However, I found nothing that works well  
+    VCPKG working as submodules was begging to be used as the Node_Modules of the C++ World  
+    Begging I tell you. Begging!
+
+12. Can this be used for production?  
+    I am not sure. I don't think it should be used in production till we reach our first major release
 
 ---
 
