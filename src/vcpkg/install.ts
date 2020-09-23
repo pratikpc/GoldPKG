@@ -35,7 +35,7 @@ export default async function Install(
     // If an Error has occured,
     // Early Return
     if (manifestInstallResults.stderr.trim() !== '')
-        return DEFAULT_EMPTY_STDOUT;
+        return manifestInstallResults;
 
     const [
         simpleInstallOfPackagesResults,
@@ -43,7 +43,7 @@ export default async function Install(
     ] = await InstallProvidedPackages(commands_, true);
 
     if (simpleInstallOfPackagesResults.stderr.trim() !== '')
-        return DEFAULT_EMPTY_STDOUT;
+        return simpleInstallOfPackagesResults;
 
     if (pkgProvided.length !== 0) {
         await vcpkgManifest.AddPackages(pkgProvided);
@@ -80,21 +80,15 @@ ${target.join('\n')}
 
         if (cmakeFiles.length !== 0) {
             if (pkgProvided.length === 0) {
-                Show(
-                    'error',
-                    'Please provide package-names to add to CMake'
-                );
-                Show(
-                    'error',
-                    'By default, we refuse to add all CMake Packages to a file even if we could',
-                    "It's really easy to implement from our side. But we'd prefer if your CMakeLists were modular"
-                );
-                Show(
-                    'error',
-                    `To Add Packages to your CMakeLists.txt, specify your path to CMake Using
-            ${LIBNAME} install <pkg-name-if-empty-add-all> --cmake <CMAKE FILE>`
-                );
-                return DEFAULT_EMPTY_STDOUT;
+                return {
+                    stdout: '',
+                    stderr: `Please provide package-names to add to CMake
+By default, we refuse to add all CMake Packages to a file even if we could
+You can do it by passing --cmake * in the command line
+To Add Packages to your CMakeLists.txt, specify your path to CMake Using 
+${LIBNAME} install <pkg-name-if-empty-add-all> --cmake <CMAKE FILE>`,
+                    show: true
+                };
             }
 
             if (find.length === 0 && target.length === 0)

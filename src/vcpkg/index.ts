@@ -3,7 +3,7 @@ import Install from './install';
 import Show from '../util/show';
 import Remove from './remove';
 import { UpdateVCPKgSubmodule } from '../util/Git';
-import { DEFAULT_EMPTY_STDOUT } from '../constants';
+import type { DEFAULT_EMPTY_STDOUT } from '../constants';
 
 export default async function ExecVCPKg(
     options_: string[]

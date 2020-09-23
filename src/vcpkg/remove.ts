@@ -85,8 +85,11 @@ export default async function Remove(commands_: string[]) {
     // If No Packages Specified
     // Do Nothing
     if (pkgNames.length === 0) {
-        Show('error', 'No Package to Remove Specified');
-        return DEFAULT_EMPTY_STDOUT;
+        return {
+            stdout: '',
+            stderr: 'No Package to Remove Specified',
+            show: true
+        };
     }
 
     await vcpkgManifest.RemovePackages(pkgNames);
