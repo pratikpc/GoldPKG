@@ -70,9 +70,19 @@ export default class BaseParser {
         );
     }
 
-    async WriteFile(data: string | Uint8Array) {
-        if (this.Exists)
-            await writeFile(this.FilePath, data);
+    public get IsFile() {
+        return new Promise<boolean>((resolve, reject) => {
+            if (!this.Exists) resolve(false);
+            else
+                this.FileStats.then((stats) =>
+                    resolve(stats.isFile())
+                ).catch((err) => reject(err));
+        });
+    }
+
+    public get FileStats() {
+        return lstat(this.FilePath);
+    }
 
     async WriteFile(
         data: string | Uint8Array,
