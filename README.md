@@ -136,7 +136,7 @@ We also provide Unit Tests for Library
 | **--config-json**         | Provide Path to Configuration File. By Default, Looks in Current Directory | `[string]` [default: Current Directory]                                                   |
 | **_--cmake_**             | Provide Path to `CMakeLists.txt`.                                          | `[string]`                                                                                |
 | **--vcpkg-json**          | Provide Path to vcpkg Manifest                                             | `[string]` [default: Current Directory]                                                   |
-| **--vcpkg-dir**           | Provide Path to VCPkg.                                                     | `[string]` [default: Current Directory]                                                   |
+| **--vcpkg-root**          | Provide Path to VCPkg.                                                     | `[string]` [default: Current Directory]                                                   |
 | **--save-dev**, **--dev** | Save New Package to Dev Environment                                        |                                                                                           |
 | **--cmake-toolchain**     | Get the Path to VCPKG ToolChain File                                       |                                                                                           |
 | **--triplet**             | Set the VCPKG Triplet                                                      | `[string]`                                                                                |

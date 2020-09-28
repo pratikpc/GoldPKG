@@ -15,7 +15,7 @@ export default async function Bootstrap(
             ? `${file}.bat`
             : `./${file}.sh`;
     const vcpkgPath = String(
-        configurationParser.Config['vcpkg-dir']
+        configurationParser.Config['vcpkg-root']
     );
     if (!existsSync(vcpkgPath))
         return {
@@ -33,6 +33,6 @@ Run ${LIBNAME} --init`,
                 .Bootstrap as string[]),
             ...commands
         ],
-        String(configurationParser.Config['vcpkg-dir'])
+        String(configurationParser.Config['vcpkg-root'])
     );
 }

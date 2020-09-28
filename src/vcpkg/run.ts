@@ -14,7 +14,7 @@ export default async function RunVCPKG(
     streamOutputToUserOnScreen = true
 ) {
     const vcpkgPath = String(
-        configurationParser.Config['vcpkg-dir']
+        configurationParser.Config['vcpkg-root']
     );
     const file = 'vcpkg';
     // If Windows, run the Exe

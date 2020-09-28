@@ -14,8 +14,8 @@ export default async function LoadParser(
     ]);
     configurationParser.Config.cmake = argv.cmake ?? '';
 
-    configurationParser.Config['vcpkg-dir'] = path.resolve(
-        argv['vcpkg-dir']
+    configurationParser.Config['vcpkg-root'] = path.resolve(
+        argv['vcpkg-root']
     );
     configurationParser.Config['save-dev'] = argv[
         'save-dev'

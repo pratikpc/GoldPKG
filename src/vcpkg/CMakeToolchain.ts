@@ -8,7 +8,7 @@ export default function PathToCMakeToolChain() {
         path.resolve(
             path.join(
                 String(
-                    configurationParser.Config['vcpkg-dir']
+                    configurationParser.Config['vcpkg-root']
                 ),
                 'scripts',
                 'buildsystems',

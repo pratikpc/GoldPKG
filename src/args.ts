@@ -39,7 +39,7 @@ const GoldPKGArgs = yargs
                 'Provide Path to vcpkg.json. By Default, Looks in Current Directory',
             default: resolve('.')
         },
-        'vcpkg-dir': {
+        'vcpkg-root': {
             requiresArg: true,
             string: true,
             number: false,
