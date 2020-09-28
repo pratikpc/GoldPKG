@@ -1,5 +1,7 @@
+import path from 'path';
+
 import type GoldPKGArgs from '../args';
-import CMakeParser from './CMakeParser';
+import { AddToolchainPathToTopLevelCMakeLists } from './CMakeParsers';
 import configurationParser from './ConfigurationManager';
 import vcpkgManifest from './VCPkgManifest';
 
@@ -12,8 +14,9 @@ export default async function LoadParser(
     ]);
     configurationParser.Config.cmake = argv.cmake ?? '';
 
-    configurationParser.Config['vcpkg-dir'] =
-        argv['vcpkg-dir'];
+    configurationParser.Config['vcpkg-dir'] = path.resolve(
+        argv['vcpkg-dir']
+    );
     configurationParser.Config['save-dev'] = argv[
         'save-dev'
     ]
@@ -21,19 +24,12 @@ export default async function LoadParser(
         : 'dependencies';
     configurationParser.Config.triplet = argv.triplet;
 
-    // Update the Local CMake File
-    // Add ToolChain Path
-    const defaultTopLevelCMakeToolChain = new CMakeParser();
-    await defaultTopLevelCMakeToolChain.LoadFile(
-        vcpkgManifest.DirName
-    );
-
-    // Save the path to our VCPKG CMake ToolChain File
-    defaultTopLevelCMakeToolChain.setCMakeToolChainLine();
-
+    // Generate Schema
     await Promise.all([
-        defaultTopLevelCMakeToolChain.Save(),
+        await AddToolchainPathToTopLevelCMakeLists(
+            vcpkgManifest.DirName
+        ),
         // Generate Default if No Configuration Found
-        configurationParser.WriteDefault()
+        configurationParser.WriteDefaultIfNotExists()
     ]);
 }

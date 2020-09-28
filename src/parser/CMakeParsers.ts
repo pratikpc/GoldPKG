@@ -56,3 +56,17 @@ export default class CMakeParsers {
         );
     }
 }
+
+export async function AddToolchainPathToTopLevelCMakeLists(
+    topLevelPath: string
+) {
+    // Update the Local CMake File
+    // Add ToolChain Path
+    const defaultTopLevelCMakeToolChain = new CMakeParser();
+    await defaultTopLevelCMakeToolChain.LoadFile(
+        topLevelPath
+    );
+    // Save the path to our VCPKG CMake ToolChain File
+    defaultTopLevelCMakeToolChain.setCMakeToolChainLine();
+    await defaultTopLevelCMakeToolChain.Save();
+}
