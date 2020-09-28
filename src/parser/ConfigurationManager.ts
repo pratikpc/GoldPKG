@@ -2,7 +2,7 @@ import { LIBNAME } from '../constants';
 import { DependencyKeyManifest } from '../constants/types';
 import BaseParser from './BaseParser';
 
-// Store Package Conf in Package.json
+// Store Package Conf in .{LIBNAME}.json
 export const DEFAULT_PACKAGE_CONF = {
     Bootstrap: [] as string[],
     VCPkg: [] as string[]
@@ -18,14 +18,12 @@ class ConfigurationParser extends BaseParser {
         super(`.${LIBNAME}.json`, FilePath);
     }
 
-    public async LoadFile(FilePath?: string) {
-        await super.LoadFile(FilePath);
-        if (this.Exists)
-            this.Config = await this.ReadJson.then(
-                async (json) =>
-                    (json ??
-                        DEFAULT_PACKAGE_CONF) as typeof DEFAULT_PACKAGE_CONF
-            );
+    public get ReadJson() {
+        return super.ReadJson.then(
+            (json) =>
+                (json ??
+                    DEFAULT_PACKAGE_CONF) as typeof DEFAULT_PACKAGE_CONF
+        );
     }
 
     public async LoadFile(FilePath?: string) {
@@ -39,9 +37,13 @@ class ConfigurationParser extends BaseParser {
     }
 
     // Generate Schema
-    public async WriteDefault() {
-        if (this.Exists) return;
-        await this.WriteJson(DEFAULT_PACKAGE_CONF);
+    public async WriteDefaultIfNotExists() {
+        if (!this.Exists || !(await this.IsFile))
+            await this.WriteJson(
+                DEFAULT_PACKAGE_CONF,
+                // Do Not check for file Existence
+                false
+            );
     }
 
     public get DependencyKey(): DependencyKeyManifest {

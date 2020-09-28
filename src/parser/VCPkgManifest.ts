@@ -5,6 +5,19 @@ import UpgradeVersion from '../util/version';
 import BaseParser from './BaseParser';
 import configurationParser from './ConfigurationManager';
 
+import { AddToolchainPathToTopLevelCMakeLists } from './CMakeParsers';
+
+const DEFAULT_VCPKG_CONF = {
+    name: 'goldpkg-template',
+    // Same default Version as Node.JS NPM
+    'version-string': '1.0.0',
+    // No Dependencies
+    dependencies: [] as string[],
+    // Same default License as Node.JS
+    license: 'ISC',
+    description: ''
+};
+
 class VCPkgManifest extends BaseParser {
     constructor(FilePath?: string) {
         super('vcpkg.json', FilePath);
@@ -116,12 +129,18 @@ class VCPkgManifest extends BaseParser {
         return version;
     }
 
-    // // Only works on VCPKG.json
-    // public async RemovePackages(packages: string[]) {
-    //     await this.SetPackages(
-    //         difference(await this.RawDependencies, packages)
-    //     );
-    // }
+    public async WriteDefaultIfNotExists() {
+        if (!this.Exists || !(await this.IsFile)) {
+            await this.WriteJson(
+                DEFAULT_VCPKG_CONF,
+                // Do Not check for file Existence
+                false
+            );
+
+            await this.LoadFile();
+
+        }
+    }
 }
 
 const vcpkgManifest = new VCPkgManifest();
