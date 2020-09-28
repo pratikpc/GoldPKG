@@ -34,6 +34,10 @@ Run ${LIBNAME} --init`,
         };
     if (!existsSync(join(vcpkgPath, app)))
         await Bootstrap();
+
+    // Generate Default if No VCPKG Manifest Found
+    await vcpkgManifest.WriteDefaultIfNotExists();
+
     const manifestDir = vcpkgManifest.DirName;
     return await RunCommandAsStream(
         app,
