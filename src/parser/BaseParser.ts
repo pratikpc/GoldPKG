@@ -73,11 +73,22 @@ export default class BaseParser {
     async WriteFile(data: string | Uint8Array) {
         if (this.Exists)
             await writeFile(this.FilePath, data);
+
+    async WriteFile(
+        data: string | Uint8Array,
+        checkExists = true
+    ) {
+        if (checkExists && !this.Exists) return;
+        await writeFile(this.FilePath, data);
     }
 
-    public async WriteJson(file: unknown) {
+    public async WriteJson(
+        file: unknown,
+        checkExists = true
+    ) {
         await this.WriteFile(
-            JSON.stringify(file, null, '\t')
+            JSON.stringify(file, null, '\t'),
+            checkExists
         );
     }
 }
