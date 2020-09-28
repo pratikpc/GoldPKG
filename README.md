@@ -1,14 +1,15 @@
 # GoldPKG
 
-![npm](https://img.shields.io/npm/v/goldpkg) ![C++](https://img.shields.io/badge/C++-Solutions-blue.svg?style=flat&logo=cplusplus) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![Lint and Format Status](https://github.com/pratikpc/GoldPKG/workflows/Lint-Format/badge.svg)](https://github.com/pratikpc/GoldPKG/actions)
+[![npm](https://img.shields.io/npm/v/goldpkg)](https://www.npmjs.com/package/goldpkg) [![C++](https://img.shields.io/badge/C++-Solutions-blue.svg?style=flat&logo=cplusplus)](https://isocpp.org/) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier) [![Lint and Format Status](https://github.com/pratikpc/GoldPKG/workflows/Lint-Format/badge.svg)](https://github.com/pratikpc/GoldPKG/actions)
 
 ---
 
-_[Did you pay the Iron Price for CMake and VCPKg Integration or the Gold?](https://youtu.be/uY_KyLAdgfs?t=65)_
+_[Did you pay the Iron Price for CMake and VCPKg Integration or the Gold?  
+ Yes. I watch GoT. Non-GoT can ignore this lame joke](https://youtu.be/uY_KyLAdgfs?t=65)_
 
 ---
 
-GoldPKG Helps our users pay the _Gold Price_ for [VCPKG](https://github.com/microsoft/vcpkg/) and CMake Integration by
+GoldPKG simplifies [VCPKG](https://github.com/microsoft/vcpkg/) and CMake Integration by
 
 1. Make VCPKG into the _[NPM](https://docs.npmjs.com/cli-documentation/) of the C++ World_ (at least npm install and uninstall :-P)
 2. Making it _easier_ to integrate CMake and VCPKG Manifests
@@ -39,12 +40,26 @@ This will create a CMake Project with GoldPKG Support
 
 ---
 
+### Using an Existing Project
+
+You need - To possess a top level CMakeLists.txt
+
+-   An Initialized Git Repository - With a commit - As we will add vcpkg as a submodule for you
+    Run `goldpkg install`  
+    GoldPKG will add .vcpkg submodule etc for you  
+    We will also generate a VCPKG Manifest for you  
+    We will also generate a GoldPKG Configuration for you
+
+### Handhold Me. Generate Samples for Me
+
 Run `goldpkg --init Samples`  
 This generates a CMake Project in the _Samples_ Folder  
 The Code generated is Modular  
 We provide a Sample Library in Lib Folder  
-And Application in src
+And Application in src  
 We also provide Unit Tests for Library
+
+Next run `goldpkg install`
 
 ---
 
@@ -112,15 +127,14 @@ We also provide Unit Tests for Library
 
 ## What next?
 
-1. Initialize the Project
-2. Install the Dependencies using (`goldpkg install`)
-3. Modify the Code and add libraries to your liking
-4. Run `cmake -S . -B build -G Ninja`  
+1. Install the Dependencies using (`goldpkg install`)
+2. Modify the Code and add libraries to your liking
+3. Run `cmake -S . -B build -G Ninja`  
    This will generate Ninja-Build files for you  
    I recommend using Ninja-Build because it's pretty nice
-5. Run `cmake --build build` to build the code
-6. `cd build`
-7. Run `ctest` to start testing
+4. Run `cmake --build build` to build the code
+5. `cd build`
+6. Run `ctest` to start testing
 
 ---
 
