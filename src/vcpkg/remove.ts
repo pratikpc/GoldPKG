@@ -64,7 +64,10 @@ ${removeTargets.join('\n')}`
 }
 
 export default async function Remove(commands_: string[]) {
-    if (!vcpkgManifest.Exists)
+    if (
+        !vcpkgManifest.Exists ||
+        !(await vcpkgManifest.IsFile)
+    )
         return {
             stdout: '',
             stderr: 'VCPKG Manifest Not Found',

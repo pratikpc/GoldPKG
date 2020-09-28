@@ -28,6 +28,12 @@ class ConfigurationParser extends BaseParser {
             );
     }
 
+    public async LoadFile(FilePath?: string) {
+        await super.LoadFile(FilePath);
+        if (this.Exists && (await this.IsFile))
+            this.Config = await this.ReadJson;
+    }
+
     public get VCPKGConfig() {
         return (this.Config.VCPKg ?? []) as string[];
     }

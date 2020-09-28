@@ -11,11 +11,10 @@ export default class BaseParser {
         this.FilePath = FilePath ?? this.FilePath;
         this.FilePath = path.resolve(this.FilePath);
         if (!this.Exists) {
-            this.FilePath = '';
             return;
         }
         // First Check if Path is Folder
-        let stats = await lstat(this.FilePath);
+        const stats = await this.FileStats;
         if (stats.isDirectory()) {
             // If Folder, assume CMakeLists.txt is default file in Directory
             this.FilePath = join(
@@ -23,12 +22,6 @@ export default class BaseParser {
                 this.DefaultFile
             );
         }
-        if (!this.Exists) {
-            this.FilePath = '';
-            return;
-        }
-        stats = await lstat(this.FilePath);
-        if (!stats.isFile()) this.FilePath = '';
     }
 
     constructor(DefaultFile: string, FilePath?: string) {
