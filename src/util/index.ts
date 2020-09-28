@@ -15,19 +15,10 @@ export function ReturnParamTwice<T>(...elems: T[]) {
     return [...elems, ...elems];
 }
 
-function escapeRegExp(strToEscape: string) {
-    // Escape special characters for use in a regular expression
-    return strToEscape.replace(
-        /[-[\]/{}()*+?.\\^$|]/g,
-        '\\$&'
-    );
-}
-
 export function trimChar(
     origString: string,
-    charToTrim_: string
+    charToTrim: string
 ) {
-    const charToTrim = escapeRegExp(charToTrim_);
     const regEx = new RegExp(
         `^[${charToTrim}]+|[${charToTrim}]+$`,
         'g'
@@ -36,10 +27,7 @@ export function trimChar(
 }
 
 export function ToPosixPath(filePath: string) {
-    return trimChar(
-        filePath.split(path.sep).join(path.posix.sep),
-        path.posix.sep
-    );
+    return filePath.split(path.sep).join(path.posix.sep);
 }
 
 export function CMakeTOVCPkgPath(cmake: string) {
