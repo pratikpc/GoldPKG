@@ -1,10 +1,12 @@
 import { existsSync } from 'fs';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import configurationParser from '../parser/ConfigurationManager';
 import vcpkgManifest from '../parser/VCPkgManifest';
 import RunCommandAsStream from '../cmd';
 import Bootstrap from './Bootstrap';
 import { LIBNAME } from '../constants';
+import { AddVCPKgSubmodule } from '../util/Git';
+import Show from '../util/show';
 
 export default async function RunVCPKG(
     options: readonly string[],
@@ -23,6 +25,25 @@ export default async function RunVCPKG(
         String(process.platform) === 'win32'
             ? `${file}.exe`
             : `./${file}`;
+    const defaultVcpkgPath = resolve(
+        join(process.cwd(), '.vcpkg')
+    );
+
+    // If we are using the Default VCPKG Path
+    // And it does not exist
+    // Re-add it
+    if (
+        defaultVcpkgPath === vcpkgPath &&
+        !existsSync(vcpkgPath)
+    ) {
+        Show(
+            'message',
+            `VCPKG not found at ${vcpkgPath}
+Adding vcpkg submodule`
+        );
+
+        await AddVCPKgSubmodule();
+    }
     if (!existsSync(vcpkgPath))
         return {
             stdout: '',
