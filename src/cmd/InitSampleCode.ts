@@ -9,15 +9,11 @@ export default async function InitSampleCode(
     location: string,
     ...args: string[]
 ) {
-    try {
-        await CloneRepo(
-            GIT_REPO_SAMPLE_CODE,
-            location,
-            ...args
-        );
-    } catch (err) {
-        // Ignore Error
-    }
+    await CloneRepo(
+        GIT_REPO_SAMPLE_CODE,
+        location,
+        ...args
+    );
     Show(
         'message',
         `Install packages at ${location} using npx ${LIBNAME} install`

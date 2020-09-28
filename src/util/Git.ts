@@ -1,15 +1,22 @@
 import RunCommandAsStream from '../cmd';
+import { DEFAULT_EMPTY_STDOUT } from '../constants';
 import Bootstrap from '../vcpkg/Bootstrap';
 async function RunGit(
     commands: string[],
-    streamOutputToUserOnScreen = true
+    streamOutputToUserOnScreen = true,
+    ignoreExcept = true
 ) {
-    return RunCommandAsStream(
-        'git',
-        ['--no-pager', ...commands],
-        null,
-        streamOutputToUserOnScreen
-    );
+    try {
+        return RunCommandAsStream(
+            'git',
+            ['--no-pager', ...commands],
+            null,
+            streamOutputToUserOnScreen
+        );
+    } catch (err) {
+        if (!ignoreExcept) throw err;
+    }
+    return DEFAULT_EMPTY_STDOUT;
 }
 
 export async function CloneRepo(
