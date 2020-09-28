@@ -46,12 +46,14 @@ Run ${LIBNAME} --init`,
             // We will however try to run install in Manifest Mode
             manifestMode
                 ? `--manifest-root-dir=${manifestDir}`
-                : '',
+                : // Disable Manifests
+                  '--feature-flags=-manifests',
             // Experimental/Documented Switch as of Writing
             // Enable Both
             manifestMode
                 ? `--x-manifest-root=${manifestDir}`
-                : '',
+                : // Disable Manifests
+                  '--feature-flags=-manifests',
             // Enable Support for Triplet Configuration
             ...(configurationParser.Triplet == null
                 ? []
