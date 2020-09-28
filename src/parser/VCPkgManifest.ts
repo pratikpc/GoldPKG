@@ -139,6 +139,9 @@ class VCPkgManifest extends BaseParser {
 
             await this.LoadFile();
 
+            await AddToolchainPathToTopLevelCMakeLists(
+                this.DirName
+            );
         }
     }
 }
