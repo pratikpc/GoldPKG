@@ -47,6 +47,16 @@ export async function UpdateVCPKgSubmodule() {
     return await Bootstrap();
 }
 
+export async function AddVCPKgSubmodule() {
+    await RunGit([
+        'submodule',
+        'add',
+        'https://github.com/microsoft/vcpkg',
+        '.vcpkg'
+    ]);
+    return await Bootstrap();
+}
+
 export async function IgnoredFiles() {
     function Preprocess(arr: string[] | string[][]) {
         // Merge All Values into One
