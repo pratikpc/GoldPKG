@@ -86,11 +86,11 @@ export default class BaseParser {
     }
 
     public async WriteJson(
-        file: unknown,
+        data: unknown,
         checkExists = true
     ) {
         await this.WriteFile(
-            JSON.stringify(file, null, '\t'),
+            JSON.stringify(data, null, '\t'),
             checkExists
         );
     }

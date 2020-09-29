@@ -9,10 +9,9 @@ export const DEFAULT_PACKAGE_CONF = {
 };
 
 class ConfigurationParser extends BaseParser {
-    public Config: Record<
-        string,
-        unknown
-    > = DEFAULT_PACKAGE_CONF;
+    public Config: Record<string, unknown> = {
+        ...DEFAULT_PACKAGE_CONF
+    };
 
     constructor(FilePath?: string) {
         super(`.${LIBNAME}.json`, FilePath);
