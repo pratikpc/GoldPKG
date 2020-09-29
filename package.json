@@ -1,6 +1,6 @@
 {
     "name": "goldpkg",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "C++ Package Manager to integrate CMake and VCPKG More closely",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
